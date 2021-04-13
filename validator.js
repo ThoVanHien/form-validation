@@ -13,7 +13,6 @@ function Validator(option) {
 
   function validate(inputElement, rule) {
     //Lấy ra element message lỗi
-
     var errorElement = getParent(
       inputElement,
       option.formGroupSelector
@@ -41,6 +40,7 @@ function Validator(option) {
       }
       if (errorMessage) break;
     }
+
     if (errorMessage) {
       errorElement.innerText = errorMessage;
       getParent(inputElement, option.formGroupSelector).classList.add(
@@ -123,12 +123,15 @@ function Validator(option) {
     //Lặp qua mỗi rule và xử lý (lắng nghe sự kiện blur, input...)
     option.rules.forEach(function (rule) {
       //Lưu lại các rules cho mỗi input
+      //console.log(rule.selector,rule.test);
       if (Array.isArray(selectorRules[rule.selector])) {
         selectorRules[rule.selector].push(rule.test);
       } else {
+        
         selectorRules[rule.selector] = [rule.test];
+        console.log(selectorRules)
       }
-
+      //console.log(rule, selectorRules);
       var inputElements = formElement.querySelectorAll(rule.selector);
       Array.from(inputElements).forEach(function (inputElement) {
         //xử lý trường hợp blur khỏi input
